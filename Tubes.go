@@ -2,11 +2,6 @@ package main
 
 import "fmt"
 
-type akun struct{
-	username string
-	password string
-
-}
 type proyek struct {
     namaProyek   string
     namaKlien    string
