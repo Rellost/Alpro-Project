@@ -118,7 +118,6 @@ func hapusProyek(A *arrProyek, n *int){
 func ubahProyek(){
 
 }
-// masi salah
 func statusProyek(A *arrProyek, n *int){
 	var pilih int
 	fmt.Println("===================================")
@@ -130,7 +129,6 @@ func statusProyek(A *arrProyek, n *int){
 	switch pilih{
 	case 1 :
 		fmt.Print("Status proyek :")
-		fmt.Scan(&A[*n].status)
 		
 	case 2 :
 		return
