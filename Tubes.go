@@ -18,19 +18,6 @@ const NMAX int = 100
 type arrAkun [NMAX] akun
 type arrProyek [NMAX] proyek
 
-func login(){
-	fmt.Println("=========================================================")
-	fmt.Println("Selamat Datang di Aplikasi Freelace Managemen & Tracking")
-	fmt.Println("=========================================================")
-	fmt.Println("1.Login")
-	fmt.Println("2.Daftar akun")
-	fmt.Println("3.Exit")
-}
-func daftarAkun(A *akun, n int){
-
-
-}
-
 func menu(){
 	fmt.Println("=========================================================")
 	fmt.Println("|                                                       |")
