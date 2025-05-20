@@ -1,170 +1,147 @@
 package main
-
 import "fmt"
-
+const NMAX int = 1000
 type proyek struct {
-    namaProyek   string
-    namaKlien    string
-    deadline     string
-    status       string
+	judul, klien, status string
+	hari, bulan, tahun int
 }
-
-const NMAX int = 100
-type arrAkun [NMAX] akun
-type arrProyek [NMAX] proyek
+var arrProyek [NMAX]proyek
+var jumlahProyek int = 4
 
 func menu(){
-	fmt.Println("=========================================================")
-	fmt.Println("|                                                       |")
-	fmt.Println("|      Aplikasi Manajemen dan Tracking Freelance        |")
-	fmt.Println("|                                                       |")
-	fmt.Println("=========================================================")
-	fmt.Println("|1.Daftar Proyek                                        |")
-	fmt.Println("|2.Tambah Proyek                                        |")
-	fmt.Println("|3.Hapus Proyek                                         |")
-	fmt.Println("|4.Ubah Proyek                                          |")
-	fmt.Println("|5.Status Proyek                                        |")
-	fmt.Println("|6.Cari Proyek                                          |")
-	fmt.Println("|7.Laporan Proyek                                       |")
-	fmt.Println("|8.Exit                                                 |")
-	fmt.Println("=========================================================")
-}
-
-func daftarProyek(A arrProyek, n int){
-	var i int
-	fmt.Println("=========================================================")
-	fmt.Println("|                   Daftar Proyek                       |")
-	fmt.Println("=========================================================")
-	for i = 0; i < n; i++ {
-	fmt.Printf("|Proyek ke-%-42d   |\n", i+1)
-	fmt.Printf("|Nama Proyek :%-42s|\n", A[i].namaProyek)
-	fmt.Printf("|Nama Klien  :%-42s|\n",  A[i].namaKlien)
-	fmt.Printf("|Deadline    :%-42s|\n", A[i].deadline)
-	fmt.Printf("|Status      :%-42s|\n",  A[i].status)
-	}
-	fmt.Println("=========================================================")
-}
-
-func tambahProyek(A *arrProyek, n *int) {
-	var jumlah, i int
-	fmt.Println("=========================================================")
-	fmt.Println("|                                                       |")
-	fmt.Println("|      Aplikasi Manajemen dan Tracking Freelance        |")
-	fmt.Println("|                                                       |")
-	fmt.Println("=========================================================")
-	fmt.Println("|                                                       |")
-	fmt.Println("|       Selamat datang di menu tambah proyek            |")
-	fmt.Println("|                                                       |")
-	fmt.Println("|  Silakan masukkan informasi proyek yang ingin Anda    |")
-	fmt.Println("|  tambahkan ke dalam daftar                            |")	
-	fmt.Println("|                                                       |")
-	fmt.Println("|                                                       |")
-	fmt.Println("|                                                       |")
-	fmt.Println("=========================================================")
-	fmt.Print(">Jumlah proyek yang ingin ditambahkan: ")
-	fmt.Scan(&jumlah)
-
-	for i = 0; i < jumlah; i++ {
-		fmt.Printf("Proyek ke-%d:\n", *n+1)
-		fmt.Print("Nama Proyek: ")
-		fmt.Scan(&A[*n].namaProyek)
-		fmt.Print("Nama Klien: ")
-		fmt.Scan(&A[*n].namaKlien)
-		fmt.Print("Deadline: ")
-		fmt.Scan(&A[*n].deadline)
-		fmt.Print("Status: ")
-		fmt.Scan(&A[*n].status)
-
-		*n++
-	}
-	fmt.Println("Proyek anda berhasil ditambahkan")
-}
-
-func hapusProyek(A *arrProyek, n *int){
-	var nama string
-	var i, b int
-	fmt.Println("=========================================================")
-	fmt.Println("|                                                       |")
-	fmt.Println("|      Aplikasi Manajemen dan Tracking Freelance        |")
-	fmt.Println("|                                                       |")
-	fmt.Println("=========================================================")
-	fmt.Println("|                                                       |")
-	fmt.Println("|       Selamat Datang di Menu Hapus Proyek             |")
-	fmt.Println("|                                                       |")
-	fmt.Println("|  Silakan masukkan nama proyek yang ingin Anda         |")
-	fmt.Println("|  anda hapus dalam daftar                              |")	
-	fmt.Println("|                                                       |")
-	fmt.Println("|                                                       |")
-	fmt.Println("|                                                       |")
-	fmt.Println("=========================================================")
-	fmt.Print(">Nama proyek yang ingin dihapus: ")
-	fmt.Scan(&nama)
-	for i = 0; i < *n; i++{
-		if nama == A[i].namaProyek{
-			for b = i; b < *n-1; b++{
-				A[b] = A[b+1]
-			}
-			*n--
-		}
-	}
-
-}
-
-func ubahProyek(){
-
-}
-func statusProyek(A *arrProyek, n *int){
-	var pilih int
-	fmt.Println("===================================")
-	fmt.Println("Apakah anda ingin memperbarui status proyek :")
-	fmt.Println("1.Ya")
-	fmt.Println("2.Tidak")
-	fmt.Print("Silahkan pilih opsi yang tersedia: ")
-	fmt.Scan(&pilih)
-	switch pilih{
-	case 1 :
-		fmt.Print("Status proyek :")
-		
-	case 2 :
-		return
+	fmt.Println("---------------------------")
+	fmt.Println("|        MAIN MENU        |")
+	fmt.Println("---------------------------")
+	fmt.Println("|1. Lihat Daftar Proyek   |")
+	fmt.Println("|2. Tambah Proyek         |")
+	fmt.Println("|3. Hapus Proyek          |")
+	fmt.Println("|4. Keluar                |")
+	fmt.Println("---------------------------")
+	fmt.Print(">>")
+	var input int
+	fmt.Scan(&input)
+	switch input {
+		case 1: daftarProyek()
+		case 2: tambahProyek()
+		case 3: hapusProyek()
+		case 4: return
 	}
 }
 
-func cariProyek(){
-
-
+func daftarProyek() {
+	fmt.Println("--------------------------------")
+	fmt.Println("|         DAFTAR PROYEK        |")
+	fmt.Println("--------------------------------")
+	if jumlahProyek == 0 {
+		fmt.Println("*WARN* Anda belum memiliki proyek!")
+	}
+	for i := 0; i < jumlahProyek; i++ {
+		fmt.Printf("%d. %s %s %d-%d-%d %s\n", i+1, arrProyek[i].judul, arrProyek[i].klien, arrProyek[i].hari, arrProyek[i].bulan, arrProyek[i].tahun, arrProyek[i].status)
+	}
+	fmt.Println("------------------------------")
+	fmt.Println("e:edit  s:sort  f:find  x:exit") 
+	fmt.Print(">>")
+	var input string
+	fmt.Scan(&input)
+	switch input {
+		case "e": editProyek()
+		case "s": sortProyek()
+		case "f": findProyek()
+		case "x": menu()
+	}
 }
 
-func laporanProyek(){
-
-}
-
-func main(){
-	var a arrProyek
+func editProyek() {
+	fmt.Println("Silahkan pilih nomor projek yang anda ingin edit")
+	for i := 0; i < jumlahProyek; i++ {
+		fmt.Printf("%d. %s %s %d-%d-%d %s\n", i+1, arrProyek[i].judul, arrProyek[i].klien, arrProyek[i].hari, arrProyek[i].bulan, arrProyek[i].tahun, arrProyek[i].status)
+	}
+	fmt.Print(">>")
 	var n int
-	var pilih int
-	for{
-	menu()
-	fmt.Print(">Silahkan pilih opsi yang tersedia: ")
-	fmt.Scan(&pilih)
-	switch pilih {
-	case 1 :
-		daftarProyek(a, n)
-	case 2: 
-		tambahProyek(&a, &n)
-	case 3 :
-		hapusProyek(&a, &n)
-	case 4 :
-		ubahProyek()
-	case 5 :
-		statusProyek(&a, &n)
-	case 6 :
-		cariProyek()
-	case 7 :
-		laporanProyek()
-	case 8 :
-		fmt.Println("Anda keluar dari menu")
+	fmt.Scan(&n)
+	fmt.Println("1. edit judul")
+	fmt.Println("2. edit klien")
+	fmt.Println("3. edit deadline")
+	fmt.Println("4. edit status")
+	fmt.Print(">>")
+	var input int
+	fmt.Scan(&input)
+	switch input {
+		case 1: 
+			fmt.Print("Judul: ")
+			fmt.Scan(&arrProyek[n-1].judul)
+		case 2: 
+			fmt.Print("Klien: ")
+			fmt.Scan(&arrProyek[n-1].klien)
+		case 3: 
+			fmt.Print("Deadline: (DD MM YYYY) ")
+			fmt.Scan(&arrProyek[n-1].hari, &arrProyek[n-1].bulan, &arrProyek[n-1].tahun)
+		case 4: 
+			fmt.Print("Status: (working/pending/done) ")
+			fmt.Scan(&arrProyek[n-1].status)
+	}
+	daftarProyek()
+}
 
+func sortProyek() {
+	fmt.Print("1. Judul")
+	fmt.Print("2. Klien")
+	fmt.Print("3. Deadline")
+	fmt.Print("4. Status")
+	var input int
+	fmt.Scan(&input)
+	switch input {
+		case 1: 
 	}
 }
+
+func findProyek() {
+	
+}
+
+func tambahProyek() {
+	fmt.Println("------------------------------------")
+	fmt.Println("|         INPUT DATA PROYEK        |")
+	fmt.Println("------------------------------------")
+	fmt.Print("Judul: ")
+	fmt.Scan(&arrProyek[jumlahProyek].judul)
+	fmt.Print("Klien: ")
+	fmt.Scan(&arrProyek[jumlahProyek].klien)
+	fmt.Print("Deadline: (DD MM YYYY) ")
+	fmt.Scan(&arrProyek[jumlahProyek].hari, &arrProyek[jumlahProyek].bulan, &arrProyek[jumlahProyek].tahun)
+	fmt.Print("Status: (working/pending/done) ")
+	fmt.Scan(&arrProyek[jumlahProyek].status)
+	jumlahProyek++
+	menu()
+}
+
+func hapusProyek() {
+	fmt.Println("*WARN* Silahkan pilih nomor projek yang anda ingin hapus")
+	for i := 0; i < jumlahProyek; i++ {
+		fmt.Printf("%d. %s %s %d-%d-%d %s\n", i+1, arrProyek[i].judul, arrProyek[i].klien, arrProyek[i].hari, arrProyek[i].bulan, arrProyek[i].tahun, arrProyek[i].status)
+	}
+	fmt.Print(">>")
+	var n int
+	fmt.Scan(&n)
+	for i := n; i < jumlahProyek; i++ {
+		arrProyek[i-1] = arrProyek[i]
+	}
+	jumlahProyek--
+	menu()
+}
+
+func main() {
+	arrProyek[0].judul = "Pembangunan Taman Baca"
+	arrProyek[0].klien = "Andi"
+	arrProyek[0].hari = 20
+	arrProyek[0].bulan = 12 
+	arrProyek[0].tahun = 2022
+	arrProyek[0].status = "working"
+	arrProyek[1].judul = "Pembangunan Taman Baca"
+	arrProyek[1].klien = "Andi"
+	arrProyek[1].hari = 20
+	arrProyek[1].bulan = 12 
+	arrProyek[1].tahun = 2022
+	arrProyek[1].status = "working"
+	menu()
 }
