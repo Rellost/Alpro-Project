@@ -5,8 +5,71 @@ type proyek struct {
 	judul, klien, status string
 	hari, bulan, tahun int
 }
+type akun struct {
+	nama, username, password string
+}
+var arrAkun [NMAX] akun
 var arrProyek [NMAX]proyek
 var jumlahProyek int = 4
+var jumlahAkun int = 0
+
+func menuLogin() {
+	fmt.Println("---------------------------")
+	fmt.Println("|         LOGIN           |")
+	fmt.Println("---------------------------")
+	fmt.Println("|1. Login                 |")
+	fmt.Println("|2. Daftar                |")
+	fmt.Println("|3. Keluar                |")
+	fmt.Println("---------------------------")
+	fmt.Print(">>")
+	var input int
+	fmt.Scan(&input)
+	switch input {
+		case 1: login()
+		case 2: daftar()
+		case 3: return
+	}
+}
+
+func login() {
+	var indexAkun int
+	fmt.Println("Silahkan masukkan username dan password")
+	fmt.Print("Username: ")
+	var username string
+	fmt.Scan(&username)
+	fmt.Print("Password: ")
+	var password string
+	fmt.Scan(&password)
+	indexAkun = findIndexAkun(username)
+	if indexAkun != -1 && username == arrAkun[indexAkun].username && password == arrAkun[indexAkun].password {
+		menu()
+	} else {
+		fmt.Println("*WARN* Username atau password salah!")
+		menuLogin()
+	}
+}
+
+func daftar(){
+	fmt.Println("Silahkan masukkan data diri anda")
+	fmt.Print("Nama: ")
+	fmt.Scan(&arrAkun[jumlahAkun].nama)
+	fmt.Print("Username: ")
+	fmt.Scan(&arrAkun[jumlahAkun].username)
+	fmt.Print("Password: ")
+	fmt.Scan(&arrAkun[jumlahAkun].password)
+	jumlahAkun++
+	menuLogin()
+
+}
+
+func findIndexAkun(username string) int {
+	for i := 0; i < jumlahAkun; i++ {
+		if arrAkun[i].username == username {
+			return i
+		}
+	}
+	return -1
+}
 
 func menu(){
 	fmt.Println("---------------------------")
