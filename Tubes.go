@@ -137,11 +137,11 @@ func main() {
 	arrProyek[0].bulan = 12 
 	arrProyek[0].tahun = 2022
 	arrProyek[0].status = "working"
-	arrProyek[1].judul = "Pembangunan Taman Baca"
-	arrProyek[1].klien = "Andi"
-	arrProyek[1].hari = 20
-	arrProyek[1].bulan = 12 
-	arrProyek[1].tahun = 2022
-	arrProyek[1].status = "working"
+	arrProyek[1].judul = "Pembangunan Website"
+	arrProyek[1].klien = "Galang"
+	arrProyek[1].hari = 15
+	arrProyek[1].bulan = 6 
+	arrProyek[1].tahun = 2025
+	arrProyek[1].status = "pending"
 	menu()
 }
