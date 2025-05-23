@@ -269,9 +269,9 @@ func findProyek() {
 			fmt.Printf("   | %-30s | %-10s | %-10s | %-13s | %-10s\n", "Proyek", "Klien", "Deadline", "Bayaran", "Status")
 			fmt.Println("---------------------------------------------------------------------------------------")
 			for i := 0; i < jumlahProyek; i++ {
-				var tot1, tot2 [10]int
+				var tot1 [10]int
+				var tot2 int
 				a := 0
-				b := 0
 				for j := 0; j < len(arrProyek[i].klien); j++ {
 					if arrProyek[i].klien[j] >= 'A' && arrProyek[i].klien[j] <= 'Z' {
 						tot1[a] += int(arrProyek[i].klien[j]) + 32
@@ -283,18 +283,14 @@ func findProyek() {
 				}
 				for j := 0; j < len(klien); j++ {
 					if klien[j] >= 'A' && klien[j] <= 'Z' {
-						tot2[b] += int(klien[j]) + 32
-					} else if klien[j] == ' ' {
-						b++
+						tot2 += int(klien[j]) + 32
 					} else {
-						tot2[b] += int(klien[j])
+						tot2+= int(klien[j])
 					}
 				}
-				for j := b; j >= 0; j-- {
-					for k := a; k >= 0; k-- {
-						if tot1[k] == tot2[j] {
-							fmt.Printf(" %-2d| %-30s | %-10s | %02d-%02d-%04d | Rp.%-10d | %-10s\n", i+1, arrProyek[i].judul, arrProyek[i].klien, arrProyek[i].hari, arrProyek[i].bulan, arrProyek[i].tahun, arrProyek[i].bayaran, arrProyek[i].status)
-						}
+				for k := a; k >= 0; k-- {
+					if tot1[k] == tot2 {
+						fmt.Printf(" %-2d| %-30s | %-10s | %02d-%02d-%04d | Rp.%-10d | %-10s\n", i+1, arrProyek[i].judul, arrProyek[i].klien, arrProyek[i].hari, arrProyek[i].bulan, arrProyek[i].tahun, arrProyek[i].bayaran, arrProyek[i].status)
 					}
 				}
 			}
