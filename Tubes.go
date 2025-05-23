@@ -82,19 +82,23 @@ func daftarProyek() {
 }
 
 func editProyek() {
-	fmt.Println("Silahkan pilih nomor projek yang anda ingin edit")
+	fmt.Println("Silahkan pilih nomor projek yang anda ingin edit (0:kembali)")
 	fmt.Print(">>")
 	var n int
 	fmt.Scan(&n)
+	if n == 0 {
+		daftarProyek()
+	}
 	fmt.Println("1. Edit judul")
 	fmt.Println("2. Edit klien")
 	fmt.Println("3. Edit deadline")
 	fmt.Println("4. Edit bayaran")
 	fmt.Println("5. Edit status")
+	fmt.Println("6. Kembali")
 	fmt.Print(">>")
 	var input int
 	fmt.Scan(&input)
-	for input != 1 && input != 2 && input != 3 && input != 4 && input != 5 {
+	for input != 1 && input != 2 && input != 3 && input != 4 && input != 5 && input != 6 {
 		fmt.Print(">>")
 		fmt.Scan(&input)
 	}
@@ -118,6 +122,8 @@ func editProyek() {
 		case 5: 
 			fmt.Printf(">> (%s) -> ", arrProyek[n-1].status)
 			fmt.Scan(&arrProyek[n-1].status)
+		case 6:
+			daftarProyek()
 	}
 	daftarProyek()
 }
@@ -128,10 +134,11 @@ func sortProyek() {
 	fmt.Println("3. Deadline")
 	fmt.Println("4. Bayaran")
 	fmt.Println("5. Status")
+	fmt.Println("6. Kembali")
 	var input int
 	fmt.Print(">>")
 	fmt.Scan(&input)
-	for input != 1 && input != 2 && input != 3 && input != 4 && input != 5 {
+	for input != 1 && input != 2 && input != 3 && input != 4 && input != 5 && input != 6 {
 		fmt.Print(">>")
 		fmt.Scan(&input)
 	}
@@ -196,6 +203,8 @@ func sortProyek() {
 				arrProyek[pass-1] = arrProyek[idx]
 				arrProyek[idx] = temp
 			}
+		case 6:
+			daftarProyek()
 	}
 	cetakProyek()
 	fmt.Println("e:edit  s:sort  f:find  x:exit") 
@@ -220,10 +229,11 @@ func findProyek() {
 	fmt.Println("3. Deadline")
 	fmt.Println("4. Bayaran")
 	fmt.Println("5. Status")
+	fmt.Println("6. Kembali")
 	fmt.Print(">>")
 	var input int
 	fmt.Scan(&input)
-	for input != 1 && input != 2 && input != 3 && input != 4 && input != 5 {
+	for input != 1 && input != 2 && input != 3 && input != 4 && input != 5 && input != 6 {
 		fmt.Print(">>")
 		fmt.Scan(&input)
 	}
@@ -334,6 +344,8 @@ func findProyek() {
 					fmt.Printf(" %-2d| %-30s | %-10s | %02d-%02d-%04d | Rp.%-10d | %-10s\n", i+1, arrProyek[i].judul, arrProyek[i].klien, arrProyek[i].hari, arrProyek[i].bulan, arrProyek[i].tahun, arrProyek[i].bayaran, arrProyek[i].status)
 				}
 			}
+		case 6:
+			daftarProyek()
 	}
 	fmt.Println("---------------------------------------------------------------------------------------")
 	fmt.Println("e:edit  s:sort  f:find  x:exit") 
@@ -368,10 +380,13 @@ func tambahProyek() {
 	fmt.Println("------------------------------------")
 	fmt.Println("|         INPUT DATA PROYEK        |")
 	fmt.Println("------------------------------------")
-	fmt.Println("*WARN* Gunakan _ untuk spasi!")
+	fmt.Println("*WARN* Gunakan _ untuk spasi! (q:quit)")
 	fmt.Print("Judul: ")
 	var judul, klien string
 	fmt.Scan(&judul)
+	if judul == "q" {
+		menu()
+	}
 	arrProyek[jumlahProyek].judul = ubahUnderscoreKeSpasi(judul)
 	fmt.Print("Klien: ")
 	fmt.Scan(&klien)
@@ -387,11 +402,14 @@ func tambahProyek() {
 }
 
 func hapusProyek() {
-	fmt.Println("*WARN* Silahkan pilih nomor projek yang anda ingin hapus")
+	fmt.Println("*WARN* Silahkan pilih nomor projek yang anda ingin hapus (q:quit)")
 	cetakProyek()
 	fmt.Print(">>")
 	var n int
 	fmt.Scan(&n)
+	if n == 0 {
+		menu()
+	}
 	for i := n; i < jumlahProyek; i++ {
 		arrProyek[i-1] = arrProyek[i]
 	}
