@@ -101,15 +101,19 @@ func editProyek() {
 	switch input {
 		case 1: 
 			fmt.Printf(">> (%s) -> ", arrProyek[n-1].judul)
-			fmt.Scan(&arrProyek[n-1].judul)
+			var judul string
+			fmt.Scan(&judul)
+			arrProyek[n-1].judul = ubahUnderscoreKeSpasi(judul)
 		case 2:  
 			fmt.Printf(">> (%s) -> ", arrProyek[n-1].klien)
-			fmt.Scan(&arrProyek[n-1].klien)
+			var klien string
+			fmt.Scan(&klien)
+			arrProyek[n-1].klien = ubahUnderscoreKeSpasi(klien)
 		case 3: 
 			fmt.Printf(">> (%02d %02d %04d) -> ", arrProyek[n-1].hari, arrProyek[n-1].bulan, arrProyek[n-1].tahun)
 			fmt.Scan(&arrProyek[n-1].hari, &arrProyek[n-1].bulan, &arrProyek[n-1].tahun)
 		case 4: 
-			fmt.Printf(">> (Rp.%b) -> Rp.", arrProyek[n-1].bayaran)
+			fmt.Printf(">> (Rp.%d) -> Rp.", arrProyek[n-1].bayaran)
 			fmt.Scan(&arrProyek[n-1].bayaran)
 		case 5: 
 			fmt.Printf(">> (%s) -> ", arrProyek[n-1].status)
@@ -172,7 +176,7 @@ func sortProyek() {
 			for pass := 1; pass < jumlahProyek; pass++ {
 				idx := pass-1
 				for i := pass; i < jumlahProyek; i++ {
-					if arrProyek[idx].bayaran > arrProyek[i].bayaran {
+					if arrProyek[idx].bayaran < arrProyek[i].bayaran {
 						idx = i
 					}
 				}
@@ -356,14 +360,30 @@ func findProyek() {
 	}
 }
 
+func ubahUnderscoreKeSpasi(input string) string {
+	var hasil string
+	for i := 0; i < len(input); i++ {
+		if input[i] == '_' {
+			hasil += " "
+		} else {
+			hasil += string(input[i])
+		}
+	}
+	return hasil
+}
+
 func tambahProyek() {
 	fmt.Println("------------------------------------")
 	fmt.Println("|         INPUT DATA PROYEK        |")
 	fmt.Println("------------------------------------")
+	fmt.Println("*WARN* Gunakan _ untuk spasi!")
 	fmt.Print("Judul: ")
-	fmt.Scan(&arrProyek[jumlahProyek].judul)
+	var judul, klien string
+	fmt.Scan(&judul)
+	arrProyek[jumlahProyek].judul = ubahUnderscoreKeSpasi(judul)
 	fmt.Print("Klien: ")
-	fmt.Scan(&arrProyek[jumlahProyek].klien)
+	fmt.Scan(&klien)
+	arrProyek[jumlahProyek].klien = ubahUnderscoreKeSpasi(klien)
 	fmt.Print("Deadline: (DD MM YYYY) ")
 	fmt.Scan(&arrProyek[jumlahProyek].hari, &arrProyek[jumlahProyek].bulan, &arrProyek[jumlahProyek].tahun)
 	fmt.Print("Bayaran: Rp.")
@@ -393,7 +413,7 @@ func main() {
 	arrProyek[2] = proyek{judul: "Game Simple", klien: "Windah B", hari: 16, bulan: 7, tahun: 2025, bayaran: 156000000, status: "working"}
 	arrProyek[3] = proyek{judul: "Website Penghasil Bitcoin", klien: "Hirata", hari: 20, bulan: 12, tahun: 2027, bayaran: 3000000, status: "pending"}
 	arrProyek[4] = proyek{judul: "Aplikasi Absensi Sekolah", klien: "Sakura", hari: 10, bulan: 1, tahun: 2024, bayaran: 5000000, status: "done"}
-	arrProyek[5] = proyek{judul: "Sistem Kasir Warung", klien: "Joko Y", hari: 5, bulan: 3, tahun: 2025, bayaran: 2500000, status: "working"}
+	arrProyek[5] = proyek{judul: "Sistem Kasir Warung", klien: "Sumeru", hari: 5, bulan: 3, tahun: 2025, bayaran: 2500000, status: "working"}
 	arrProyek[6] = proyek{judul: "Desain Logo Perusahaan", klien: "Lina A.S", hari: 22, bulan: 9, tahun: 2023, bayaran: 750000, status: "done"}
 	arrProyek[7] = proyek{judul: "Web Portofolio Pribadi", klien: "Yudi Amir", hari: 30, bulan: 11, tahun: 2025, bayaran: 1800000, status: "pending"}
 	arrProyek[8] = proyek{judul: "Aplikasi Booking Salon", klien: "Tari", hari: 8, bulan: 8, tahun: 2024, bayaran: 4000000, status: "working"}
